@@ -35,6 +35,25 @@
 </head>
 
 <body>
+  
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyCKnX8ueUgfuNo4gfdX6xfwbwb2Ct1ouVY",
+      authDomain: "slide-puzzle-hacked.firebaseapp.com",
+      projectId: "slide-puzzle-hacked",
+      storageBucket: "slide-puzzle-hacked.appspot.com",
+      messagingSenderId: "864899757809",
+      appId: "1:864899757809:web:314c6aa368af30de7e9b50",
+      measurementId: "G-6272WBY3T6"
+    };
+      // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
