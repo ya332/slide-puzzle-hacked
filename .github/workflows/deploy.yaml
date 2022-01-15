@@ -7,7 +7,7 @@ on:
       - "pubspec.yaml"
       - "pubspec.lock"
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
