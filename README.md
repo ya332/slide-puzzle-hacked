@@ -1,4 +1,6 @@
 # Slide Puzzle 
+Live at https://slide-puzzle-hacked.web.app/
+Flutter Hackathon Project Submission by Yigit Alparslan (GitHub handle is ya332)
 Flutter Puzzle Hack: https://flutterhack.devpost.com/
 Sample code from: https://github.com/VGVentures/slide_puzzle
 
