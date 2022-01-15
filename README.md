@@ -1,4 +1,6 @@
-# Slide Puzzle
+# Slide Puzzle 
+Flutter Puzzle Hack: https://flutterhack.devpost.com/
+Sample code from: https://github.com/VGVentures/slide_puzzle
 
 ![Photo Booth Header][logo]
 
