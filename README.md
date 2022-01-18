@@ -16,6 +16,10 @@ A slide puzzle built for [Flutter Challenge](https://flutterhack.devpost.com/).
 
 *Created using [Very Good CLI][very_good_cli_link].*
 
+## Roadmap
+- [ ] Add riplle effect
+- [ ] Add hacker mode
+- [ ] Add crazy mode
 ---
 
 ## Getting Started 🚀

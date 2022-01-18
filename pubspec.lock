@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.0"
+  archive:
+    dependency: transitive
+    description:
+      name: archive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.8"
   args:
     dependency: transitive
     description:
@@ -219,6 +226,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  image:
+    dependency: transitive
+    description:
+      name: image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.1"
   intl:
     dependency: "direct main"
     description:
@@ -422,6 +436,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  ripple_effect:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "494fc18d8e5281b50e2aad351f9b3b19224ec7cc"
+      url: "https://github.com/g-apparence/ripple-effect"
+    source: git
+    version: "0.0.1"
   shelf:
     dependency: transitive
     description:

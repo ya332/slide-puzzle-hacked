@@ -34,19 +34,42 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   Widget endSectionBuilder(PuzzleState state) {
     return Column(
       children: [
-        const ResponsiveGap(
-          small: 32,
-          medium: 48,
-        ),
-        ResponsiveLayoutBuilder(
-          small: (_, child) => const SimplePuzzleShuffleButton(),
-          medium: (_, child) => const SimplePuzzleShuffleButton(),
-          large: (_, __) => const SizedBox(),
-        ),
-        const ResponsiveGap(
-          small: 32,
-          medium: 48,
-        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const ResponsiveGap(
+              small: 64,
+              medium: 96,
+            ),
+            ResponsiveLayoutBuilder(
+              small: (_, child) => const SimplePuzzleShuffleButton(),
+              medium: (_, child) => const SimplePuzzleShuffleButton(),
+              large: (_, __) => const SizedBox(),
+            ),
+            const ResponsiveGap(
+              small: 64,
+              medium: 96,
+            ),
+            ResponsiveLayoutBuilder(
+              small: (_, child) => const SimplePuzzleHackButton(),
+              medium: (_, child) => const SimplePuzzleHackButton(),
+              large: (_, __) => const SizedBox(),
+            ),
+            const ResponsiveGap(
+              small: 64,
+              medium: 96,
+            ),
+            ResponsiveLayoutBuilder(
+              small: (_, child) => const SimplePuzzleCrazyButton(),
+              medium: (_, child) => const SimplePuzzleCrazyButton(),
+              large: (_, __) => const SizedBox(),
+            ),
+            const ResponsiveGap(
+              small: 64,
+              medium: 96,
+            ),
+          ],
+        )
       ],
     );
   }
@@ -208,6 +231,19 @@ class SimpleStartSection extends StatelessWidget {
           medium: (_, __) => const SizedBox(),
           large: (_, __) => const SimplePuzzleShuffleButton(),
         ),
+        const ResponsiveGap(large: 32),
+        ResponsiveLayoutBuilder(
+          small: (_, __) => const SizedBox(),
+          medium: (_, __) => const SizedBox(),
+          large: (_, __) => const SimplePuzzleHackButton(),
+        ),
+        const ResponsiveGap(large: 32),
+        ResponsiveLayoutBuilder(
+          small: (_, __) => const SizedBox(),
+          medium: (_, __) => const SizedBox(),
+          large: (_, __) => const SimplePuzzleCrazyButton(),
+        ),
+        const ResponsiveGap(large: 32),
       ],
     );
   }
@@ -373,6 +409,66 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
           ),
           const Gap(10),
           Text(context.l10n.puzzleShuffle),
+        ],
+      ),
+    );
+  }
+}
+
+/// {@template puzzle_hack_button}
+/// Displays the button to shuffle the puzzle.
+/// {@endtemplate}
+@visibleForTesting
+class SimplePuzzleHackButton extends StatelessWidget {
+  /// {@macro puzzle_shuffle_button}
+  const SimplePuzzleHackButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PuzzleButton(
+      textColor: PuzzleColors.primary0,
+      backgroundColor: PuzzleColors.primary6,
+      onPressed: () => context.read<PuzzleBloc>().add(const PuzzleReset()),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Image.asset(
+          //   'assets/images/shuffle_icon.png',
+          //   width: 17,
+          //   height: 17,
+          // ),
+          // const Gap(10),
+          Text(context.l10n.puzzleHack),
+        ],
+      ),
+    );
+  }
+}
+
+/// {@template puzzle_hack_button}
+/// Displays the button to shuffle the puzzle.
+/// {@endtemplate}
+@visibleForTesting
+class SimplePuzzleCrazyButton extends StatelessWidget {
+  /// {@macro puzzle_shuffle_button}
+  const SimplePuzzleCrazyButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PuzzleButton(
+      textColor: PuzzleColors.primary0,
+      backgroundColor: PuzzleColors.primary6,
+      onPressed: () => context.read<PuzzleBloc>().add(const PuzzleReset()),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Image.asset(
+          //   'assets/images/shuffle_icon.png',
+          //   width: 17,
+          //   height: 17,
+          // ),
+          // const Gap(10),
+          Text(context.l10n.puzzleCrazy),
         ],
       ),
     );

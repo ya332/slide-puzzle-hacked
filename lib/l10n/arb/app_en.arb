@@ -16,6 +16,15 @@
     "@puzzleShuffle": {
         "description": "Shown on the button that shuffle the puzzle"
     },
+    "puzzleHack": "Hacker Mode🔥",
+    "@puzzleHack": {
+        "description": "Shown on the button that lets user hack the puzzle"
+    },
+    "puzzleCrazy": "Crazy Mode🤪",
+    "@puzzleCrazy": {
+        "description": "Shown on the button that lets user hack the puzzle"
+    },
+    
     "puzzleCompleted": "Well done. Congrats!",
     "@puzzleCompleted": {
         "description": "Shown as the success state when the puzzle is completed"

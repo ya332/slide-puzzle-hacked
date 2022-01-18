@@ -181,14 +181,20 @@ class _PuzzleSections extends StatelessWidget {
       small: (context, child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
-          const PuzzleBoard(),
+          RotationTransition(
+            turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+            child: const PuzzleBoard(),
+          ),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
       ),
       medium: (context, child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
-          const PuzzleBoard(),
+          RotationTransition(
+            turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+            child: const PuzzleBoard(),
+          ),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
       ),
@@ -198,7 +204,10 @@ class _PuzzleSections extends StatelessWidget {
           Expanded(
             child: theme.layoutDelegate.startSectionBuilder(state),
           ),
-          const PuzzleBoard(),
+          RotationTransition(
+            turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+            child: const PuzzleBoard(),
+          ),
           Expanded(
             child: theme.layoutDelegate.endSectionBuilder(state),
           ),
