@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
@@ -169,8 +170,25 @@ class _PuzzleLogo extends StatelessWidget {
   }
 }
 
-class _PuzzleSections extends StatelessWidget {
+class _PuzzleSections extends StatefulWidget {
   const _PuzzleSections({Key? key}) : super(key: key);
+
+  @override
+  State<_PuzzleSections> createState() => _PuzzleSectionsState();
+}
+
+class _PuzzleSectionsState extends State<_PuzzleSections>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 10),
+    vsync: this,
+  )..repeat();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -181,9 +199,15 @@ class _PuzzleSections extends StatelessWidget {
       small: (context, child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
-          RotationTransition(
-            turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+          AnimatedBuilder(
+            animation: _controller,
             child: const PuzzleBoard(),
+            builder: (BuildContext context, Widget? child) {
+              return Transform.rotate(
+                angle: _controller.value * 2.0 * math.pi,
+                child: child,
+              );
+            },
           ),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
@@ -191,9 +215,15 @@ class _PuzzleSections extends StatelessWidget {
       medium: (context, child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
-          RotationTransition(
-            turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+          AnimatedBuilder(
+            animation: _controller,
             child: const PuzzleBoard(),
+            builder: (BuildContext context, Widget? child) {
+              return Transform.rotate(
+                angle: _controller.value * 2.0 * math.pi,
+                child: child,
+              );
+            },
           ),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
@@ -201,12 +231,27 @@ class _PuzzleSections extends StatelessWidget {
       large: (context, child) => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          RaisedButton(
+            child: const Text('Stop'),
+            onPressed: () {
+              // _controller.forward(from: 0);
+              setState(() {
+                _controller.value = 0;
+              });
+            },
+          ),
           Expanded(
             child: theme.layoutDelegate.startSectionBuilder(state),
           ),
-          RotationTransition(
-            turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+          AnimatedBuilder(
+            animation: _controller,
             child: const PuzzleBoard(),
+            builder: (BuildContext context, Widget? child) {
+              return Transform.rotate(
+                angle: _controller.value * 2.0 * math.pi,
+                child: child,
+              );
+            },
           ),
           Expanded(
             child: theme.layoutDelegate.endSectionBuilder(state),
