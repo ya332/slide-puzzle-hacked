@@ -30,6 +30,11 @@ To run the project either use the launch configuration in VSCode/Android Studio 
 $ flutter run -d chrome
 ```
 
+## Deployment
+```bash
+$ flutter build web
+$ firebase deploy
+```
 ---
 
 ## Running Tests 🧪
