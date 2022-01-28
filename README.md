@@ -19,7 +19,7 @@ A slide puzzle built for [Flutter Challenge](https://flutterhack.devpost.com/).
 ## Roadmap
 - [ ] Add riplle effect
 - [ ] Add hacker mode
-- [ ] Add crazy mode
+- [x] Add crazy mode
 ---
 
 ## Getting Started 🚀
@@ -158,6 +158,8 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 
 ## Resources
 - Rotating https://api.flutter.dev/flutter/widgets/AnimatedBuilder-class.html
+- Dragging https://api.flutter.dev/flutter/widgets/Draggable-class.html
+
 
 [coverage_badge]: coverage_badge.svg
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html

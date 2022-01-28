@@ -275,7 +275,7 @@ class PuzzleBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
-
+    print('here are the puzzles ${puzzle}');
     final size = puzzle.getDimension();
     if (size == 0) return const CircularProgressIndicator();
 
@@ -315,7 +315,7 @@ class _PuzzleTile extends StatelessWidget {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
     return tile.isWhitespace
-        ? theme.layoutDelegate.whitespaceTileBuilder()
+        ? theme.layoutDelegate.whitespaceTileBuilder(context)
         : theme.layoutDelegate.tileBuilder(tile, state);
   }
 }

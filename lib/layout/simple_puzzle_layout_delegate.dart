@@ -179,8 +179,26 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget whitespaceTileBuilder() {
-    return const SizedBox();
+  Widget whitespaceTileBuilder(BuildContext context) {
+    return DragTarget<int>(
+      builder: (
+        BuildContext context,
+        List<dynamic> accepted,
+        List<dynamic> rejected,
+      ) {
+        return Container(
+          height: 100.0,
+          width: 100.0,
+          color: Colors.cyan,
+          child: Center(
+            child: Text('s'),
+          ),
+        );
+      },
+      onAccept: (int data) {
+        print(data);
+      },
+    );
   }
 
   @override
@@ -352,35 +370,68 @@ class SimplePuzzleTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    return TextButton(
-      style: TextButton.styleFrom(
-        primary: PuzzleColors.white,
-        textStyle: PuzzleTextStyle.headline2.copyWith(
-          fontSize: tileFontSize,
-        ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(12),
+    return Draggable(
+      feedback: TextButton(
+        style: TextButton.styleFrom(
+          primary: PuzzleColors.primary7,
+          textStyle: PuzzleTextStyle.headline2.copyWith(
+            fontSize: tileFontSize,
+          ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(12),
+            ),
+          ),
+        ).copyWith(
+          foregroundColor: MaterialStateProperty.all(PuzzleColors.white),
+          backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+            (states) {
+              if (tile.value == state.lastTappedTile?.value) {
+                return theme.pressedColor;
+              } else if (states.contains(MaterialState.hovered)) {
+                return theme.hoverColor;
+              } else {
+                return theme.defaultColor;
+              }
+            },
           ),
         ),
-      ).copyWith(
-        foregroundColor: MaterialStateProperty.all(PuzzleColors.white),
-        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) {
-            if (tile.value == state.lastTappedTile?.value) {
-              return theme.pressedColor;
-            } else if (states.contains(MaterialState.hovered)) {
-              return theme.hoverColor;
-            } else {
-              return theme.defaultColor;
-            }
-          },
-        ),
+        onPressed: state.puzzleStatus == PuzzleStatus.incomplete
+            ? () => context.read<PuzzleBloc>().add(TileTapped(tile))
+            : null,
+        child: Text(tile.value.toString()),
       ),
-      onPressed: state.puzzleStatus == PuzzleStatus.incomplete
-          ? () => context.read<PuzzleBloc>().add(TileTapped(tile))
-          : null,
-      child: Text(tile.value.toString()),
+      childWhenDragging: const SizedBox(),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          primary: PuzzleColors.primary7,
+          textStyle: PuzzleTextStyle.headline2.copyWith(
+            fontSize: tileFontSize,
+          ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(12),
+            ),
+          ),
+        ).copyWith(
+          foregroundColor: MaterialStateProperty.all(PuzzleColors.white),
+          backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+            (states) {
+              if (tile.value == state.lastTappedTile?.value) {
+                return theme.pressedColor;
+              } else if (states.contains(MaterialState.hovered)) {
+                return theme.hoverColor;
+              } else {
+                return theme.defaultColor;
+              }
+            },
+          ),
+        ),
+        onPressed: state.puzzleStatus == PuzzleStatus.incomplete
+            ? () => context.read<PuzzleBloc>().add(TileTapped(tile))
+            : null,
+        child: Text(tile.value.toString()),
+      ),
     );
   }
 }
