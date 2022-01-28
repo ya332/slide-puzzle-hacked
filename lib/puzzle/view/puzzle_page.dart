@@ -179,32 +179,43 @@ class _PuzzleSections extends StatefulWidget {
 
 class _PuzzleSectionsState extends State<_PuzzleSections>
     with TickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
+  late final AnimationController _animationController = AnimationController(
     duration: const Duration(seconds: 10),
     vsync: this,
   )..repeat();
 
   @override
   void dispose() {
-    _controller.dispose();
+    _animationController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _animationController.value = 0;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final state = context.select((PuzzleBloc bloc) => bloc.state);
+    final stateWithNoAnimationController =
+        context.select((PuzzleBloc bloc) => bloc.state);
+    final state = stateWithNoAnimationController
+        .setAnimationController(_animationController);
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
           AnimatedBuilder(
-            animation: _controller,
+            animation: _animationController,
             child: const PuzzleBoard(),
             builder: (BuildContext context, Widget? child) {
               return Transform.rotate(
-                angle: _controller.value * 2.0 * math.pi,
+                angle: _animationController.value * 2.0 * math.pi,
                 child: child,
               );
             },
@@ -216,11 +227,11 @@ class _PuzzleSectionsState extends State<_PuzzleSections>
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
           AnimatedBuilder(
-            animation: _controller,
+            animation: _animationController,
             child: const PuzzleBoard(),
             builder: (BuildContext context, Widget? child) {
               return Transform.rotate(
-                angle: _controller.value * 2.0 * math.pi,
+                angle: _animationController.value * 2.0 * math.pi,
                 child: child,
               );
             },
@@ -231,24 +242,15 @@ class _PuzzleSectionsState extends State<_PuzzleSections>
       large: (context, child) => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          RaisedButton(
-            child: const Text('Stop'),
-            onPressed: () {
-              // _controller.forward(from: 0);
-              setState(() {
-                _controller.value = 0;
-              });
-            },
-          ),
           Expanded(
             child: theme.layoutDelegate.startSectionBuilder(state),
           ),
           AnimatedBuilder(
-            animation: _controller,
+            animation: _animationController,
             child: const PuzzleBoard(),
             builder: (BuildContext context, Widget? child) {
               return Transform.rotate(
-                angle: _controller.value * 2.0 * math.pi,
+                angle: _animationController.value * 2.0 * math.pi,
                 child: child,
               );
             },

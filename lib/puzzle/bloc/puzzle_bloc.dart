@@ -4,13 +4,15 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
-  PuzzleBloc(this._size, {this.random}) : super(const PuzzleState()) {
+  PuzzleBloc(this._size, {this.random}) : super(PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
@@ -85,13 +87,16 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onPuzzleCrazy(PuzzleCrazy event, Emitter<PuzzleState> emit) {
-    final puzzle = _generatePuzzle(_size);
-    emit(
-      PuzzleState(
-        puzzle: puzzle.sort(),
-        numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
-      ),
-    );
+    print('_onPuzzleCrazy event triggered');
+    print('event ${state.animationController.toString()}');
+    final animationController = state.animationController;
+
+    if (animationController != null && animationController.isAnimating) {
+      animationController.stop();
+    } else {
+      animationController?.repeat();
+    }
+    emit(state.copyWith(animationController: animationController));
   }
 
   /// Build a randomized, solvable puzzle of the given size.
