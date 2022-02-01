@@ -41,6 +41,34 @@ class _AppState extends State<App> {
         Image.asset('assets/images/simple_dash_small.png').image,
         context,
       );
+      precacheImage(
+        Image.asset('assets/images/background-small.jpg').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/background-medium.jpg').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/background-large.jpg').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/wave.jpg').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/earth.jpg').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/space.jpg').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/joker.jpg').image,
+        context,
+      );
     });
   }
 

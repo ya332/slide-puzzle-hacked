@@ -4,8 +4,8 @@ import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 /// {@template puzzle_button}
 /// Displays the puzzle action button.
 /// {@endtemplate}
-class PuzzleButton extends StatelessWidget {
-  /// {@macro puzzle_button}
+class PuzzleButton extends StatefulWidget {
+  // ignore: public_member_api_docs
   const PuzzleButton({
     Key? key,
     required this.child,
@@ -27,6 +27,12 @@ class PuzzleButton extends StatelessWidget {
   final Widget child;
 
   @override
+  // ignore: library_private_types_in_public_api
+  _PuzzleButtonState createState() => _PuzzleButtonState();
+}
+
+class _PuzzleButtonState extends State<PuzzleButton> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 145,
@@ -34,16 +40,16 @@ class PuzzleButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
-          primary: textColor,
-          backgroundColor: backgroundColor,
-          onSurface: backgroundColor,
+          primary: widget.textColor,
+          backgroundColor: widget.backgroundColor,
+          onSurface: widget.backgroundColor,
           textStyle: PuzzleTextStyle.headline5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
         ),
-        onPressed: onPressed,
-        child: child,
+        onPressed: widget.onPressed,
+        child: widget.child,
       ),
     );
   }

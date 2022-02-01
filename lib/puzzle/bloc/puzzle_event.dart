@@ -31,6 +31,31 @@ class PuzzleReset extends PuzzleEvent {
   const PuzzleReset();
 }
 
+class PuzzleShuffle extends PuzzleEvent {
+  const PuzzleShuffle();
+}
+
 class PuzzleCrazy extends PuzzleEvent {
   const PuzzleCrazy();
+}
+
+class PuzzleHack extends PuzzleEvent {
+  const PuzzleHack();
+}
+
+class PuzzleNormal extends PuzzleEvent {
+  const PuzzleNormal();
+}
+
+class PuzzleHackFinished extends PuzzleEvent {
+  const PuzzleHackFinished();
+}
+
+class PuzzleScoreAdded extends PuzzleEvent {
+  const PuzzleScoreAdded(this.data);
+
+  final int data;
+
+  @override
+  List<Object> get props => [data];
 }

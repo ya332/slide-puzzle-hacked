@@ -12,9 +12,17 @@
     "@puzzleNumberOfTilesLeft": {
         "description": "Indicates how many puzzle tiles are not in their correct position"
     },
-    "puzzleShuffle": "Shuffle",
+    "puzzleShuffle": "Shuffle🔀",
     "@puzzleShuffle": {
         "description": "Shown on the button that shuffle the puzzle"
+    },
+    "puzzleReset": "Reset❎",
+    "@puzzleReset": {
+        "description": "Shown on the button that reset the puzzle"
+    },
+    "puzzleNormal": "Normal Mode😊",
+    "@puzzleNormal": {
+        "description": "Shown on the button that lets user play in normal mode"
     },
     "puzzleHack": "Hacker Mode🔥",
     "@puzzleHack": {

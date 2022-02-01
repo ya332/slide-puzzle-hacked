@@ -1,7 +1,7 @@
 # Slide Puzzle 
-Live at https://slide-puzzle-hacked.web.app/
-Flutter Hackathon Project Submission by Yigit Alparslan (GitHub handle is ya332)
-Flutter Puzzle Hack: https://flutterhack.devpost.com/
+Live at https://slide-puzzle-hacked.web.app/ \
+Flutter Hackathon Project Submission by Yigit Alparslan (GitHub handle is ya332) \
+Flutter Puzzle Hack: https://flutterhack.devpost.com/ \
 Sample code from: https://github.com/VGVentures/slide_puzzle
 
 ![Photo Booth Header][logo]
@@ -17,9 +17,16 @@ A slide puzzle built for [Flutter Challenge](https://flutterhack.devpost.com/).
 *Created using [Very Good CLI][very_good_cli_link].*
 
 ## Roadmap
-- [ ] Add riplle effect
-- [ ] Add hacker mode
+- [x] Add background image
 - [x] Add crazy mode
+- [x] Add hacker mode
+- [x] Add instruction texts
+- [x] Add normal mode
+- [x] Make buttons highlighted on clicked
+- [x] Issue: Crazy Mode doesn't update its button color and instructions
+- [ ] Issue: Draggables should disappear after dragged
+- [ ] Deploy to Android
+- [x] Issue: Display buttons on a 2 by 2 grid instead of same row
 ---
 
 ## Getting Started 🚀
@@ -159,6 +166,7 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 ## Resources
 - Rotating https://api.flutter.dev/flutter/widgets/AnimatedBuilder-class.html
 - Dragging https://api.flutter.dev/flutter/widgets/Draggable-class.html
+- Countdown https://pub.dev/packages/countdown_progress_indicator
 
 
 [coverage_badge]: coverage_badge.svg

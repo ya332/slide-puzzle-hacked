@@ -147,24 +147,15 @@ class _PuzzleLogo extends StatelessWidget {
     return ResponsiveLayoutBuilder(
       small: (context, child) => const SizedBox(
         height: 24,
-        child: FlutterLogo(
-          style: FlutterLogoStyle.horizontal,
-          size: 86,
-        ),
+        child: Icon(Icons.favorite, color: Colors.amber, size: 104),
       ),
       medium: (context, child) => const SizedBox(
         height: 29,
-        child: FlutterLogo(
-          style: FlutterLogoStyle.horizontal,
-          size: 104,
-        ),
+        child: Icon(Icons.favorite, color: Colors.amber, size: 104),
       ),
       large: (context, child) => const SizedBox(
         height: 32,
-        child: FlutterLogo(
-          style: FlutterLogoStyle.horizontal,
-          size: 114,
-        ),
+        child: Icon(Icons.favorite, color: Colors.amber, size: 104),
       ),
     );
   }
@@ -275,7 +266,6 @@ class PuzzleBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
-    print('here are the puzzles ${puzzle}');
     final size = puzzle.getDimension();
     if (size == 0) return const CircularProgressIndicator();
 

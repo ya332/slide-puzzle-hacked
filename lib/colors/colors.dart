@@ -12,7 +12,7 @@ abstract class PuzzleColors {
   static const Color primary3 = Color(0xFFD2DE43);
 
   /// Primary 4
-  static const Color primary4 = Color(0xFFCCDEAF);
+  static const Color primary4 = Color(0xFF00AAFF);
 
   /// Primary 5
   static const Color primary5 = Color(0xFFAA0343);
@@ -28,6 +28,9 @@ abstract class PuzzleColors {
 
   /// Primary 9
   static const Color primary9 = Color(0xFFE7F8FF);
+
+  /// Primary 10
+  static const Color primary10 = Color(0xFF0088FF);
 
   /// Primary 0
   static const Color primary0 = Color(0xFFFFFFFF);

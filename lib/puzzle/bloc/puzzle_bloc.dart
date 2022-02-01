@@ -6,17 +6,25 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
+
+enum Mode { normal, crazy, hack }
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   PuzzleBloc(this._size, {this.random}) : super(PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
+    on<PuzzleShuffle>(_onPuzzleShuffle);
     on<PuzzleCrazy>(_onPuzzleCrazy);
+    on<PuzzleHack>(_onPuzzleHack);
+    on<PuzzleNormal>(_onPuzzleNormal);
+    on<PuzzleScoreAdded>(_onPuzzleScoreAdded);
+    on<PuzzleHackFinished>(_onPuzzleHackFinished);
   }
 
   final int _size;
@@ -32,6 +40,78 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       PuzzleState(
         puzzle: puzzle.sort(),
         numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
+      ),
+    );
+  }
+
+  void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
+    state.setMode(Mode.normal);
+    if (state.animationController != null) {
+      state.animationController?.reset();
+    }
+    emit(
+      PuzzleState(
+        puzzle: state.puzzle,
+        numberOfCorrectTiles: state.puzzle.getNumberOfCorrectTiles(),
+        mode: state.mode,
+        puzzleHackFinished: false,
+      ),
+    );
+  }
+
+  void _onPuzzleHackFinished(
+      PuzzleHackFinished event, Emitter<PuzzleState> emit) {
+    emit(
+      PuzzleState(
+        puzzle: state.puzzle,
+        numberOfCorrectTiles: state.puzzle.getNumberOfCorrectTiles(),
+        mode: state.mode,
+        puzzleHackFinished: true,
+      ),
+    );
+  }
+
+  void _onPuzzleScoreAdded(PuzzleScoreAdded event, Emitter<PuzzleState> emit) {
+    var updatedScore = state.totalScore;
+    if (!state.puzzleHackFinished) {
+      updatedScore += event.data.toInt();
+    }
+    final puzzle = _generatePuzzle(_size, shuffle: true);
+    emit(
+      PuzzleState(
+        puzzle: puzzle.sort(),
+        mode: state.mode,
+        totalScore: updatedScore,
+      ),
+    );
+  }
+
+  void _onPuzzleNormal(PuzzleNormal event, Emitter<PuzzleState> emit) {
+    state.setMode(Mode.normal);
+    state.setInstruction(Mode.normal);
+    if (state.animationController != null) {
+      state.animationController?.reset();
+    }
+    emit(
+      PuzzleState(
+        puzzle: state.puzzle,
+        numberOfCorrectTiles: state.puzzle.getNumberOfCorrectTiles(),
+        mode: state.mode,
+      ),
+    );
+  }
+
+  void _onPuzzleHack(PuzzleHack event, Emitter<PuzzleState> emit) {
+    state.setMode(Mode.hack);
+    state.setInstruction(Mode.hack);
+    final animationController = state.animationController;
+    animationController?.repeat();
+
+    emit(
+      PuzzleState(
+        puzzle: state.puzzle,
+        mode: state.mode,
+        instruction: state.instruction,
       ),
     );
   }
@@ -76,8 +156,11 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     }
   }
 
-  void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
+  void _onPuzzleShuffle(PuzzleShuffle event, Emitter<PuzzleState> emit) {
     final puzzle = _generatePuzzle(_size);
+    if (state.animationController != null) {
+      state.animationController?.reset();
+    }
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
@@ -87,16 +170,18 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onPuzzleCrazy(PuzzleCrazy event, Emitter<PuzzleState> emit) {
-    print('_onPuzzleCrazy event triggered');
-    print('event ${state.animationController.toString()}');
+    state.setMode(Mode.crazy);
+    state.setInstruction(Mode.crazy);
     final animationController = state.animationController;
+    animationController?.repeat();
 
-    if (animationController != null && animationController.isAnimating) {
-      animationController.stop();
-    } else {
-      animationController?.repeat();
-    }
-    emit(state.copyWith(animationController: animationController));
+    emit(
+      PuzzleState(
+        puzzle: state.puzzle,
+        mode: state.mode,
+        instruction: state.instruction,
+      ),
+    );
   }
 
   /// Build a randomized, solvable puzzle of the given size.
