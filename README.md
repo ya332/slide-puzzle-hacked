@@ -24,9 +24,10 @@ A slide puzzle built for [Flutter Challenge](https://flutterhack.devpost.com/).
 - [x] Add normal mode
 - [x] Make buttons highlighted on clicked
 - [x] Issue: Crazy Mode doesn't update its button color and instructions
-- [ ] Issue: Draggables should disappear after dragged
-- [ ] Deploy to Android
+- [x] Issue: Draggables should disappear after dragged
 - [x] Issue: Display buttons on a 2 by 2 grid instead of same row
+- [ ] Deploy to Android
+
 ---
 
 ## Getting Started 🚀

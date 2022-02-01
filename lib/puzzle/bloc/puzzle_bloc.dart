@@ -46,18 +46,24 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
     state.setMode(Mode.normal);
-    List<bool> resetDisplays = state.resetTileDisplays();
     if (state.animationController != null) {
       state.animationController?.reset();
     }
+    List<Tile> updatedTiles = [];
+    for (var tile in state.puzzle.tiles) {
+      var updated = tile;
+      updated = tile.setDragged(val: false);
+      updatedTiles.add(updated);
+    }
+    final updatedPuzzle = Puzzle(tiles: updatedTiles);
+
     emit(
       PuzzleState(
-        puzzle: state.puzzle,
-        numberOfCorrectTiles: state.puzzle.getNumberOfCorrectTiles(),
-        mode: state.mode,
-        puzzleHackFinished: false,
-        tileDisplays: resetDisplays,
-      ),
+          puzzle: updatedPuzzle,
+          numberOfCorrectTiles: state.puzzle.getNumberOfCorrectTiles(),
+          mode: state.mode,
+          puzzleHackFinished: false,
+          totalScore: 0),
     );
   }
 
@@ -74,21 +80,26 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onPuzzleScoreAdded(PuzzleScoreAdded event, Emitter<PuzzleState> emit) {
-    print("state.totalScore" + state.totalScore.toString());
-    var newDisplays = state.tileDisplays;
-    var updatedScore = state.totalScore + event.data.toInt();
-    print("before state.tileDisplays[event.data.toInt() - 1" +
-        state.tileDisplays.toString());
-    newDisplays[event.data.toInt() - 1] = false;
-    final puzzle = _generatePuzzle(_size);
-    print("after state.tileDisplays[event.data.toInt() - 1" +
-        state.tileDisplays.toString());
+    var updatedScore = state.totalScore;
+    if (!state.puzzleHackFinished) {
+      updatedScore += event.data.toInt();
+    }
+    // final puzzle = _generatePuzzle(_size);
+    List<Tile> updatedTiles = [];
+    for (var tile in state.puzzle.tiles) {
+      var updated = tile;
+      if (tile.value == event.data) {
+        updated = tile.setDragged();
+      }
+      updatedTiles.add(updated);
+    }
+    final updatedPuzzle = Puzzle(tiles: updatedTiles);
+
     emit(
       PuzzleState(
-        puzzle: puzzle.sort(),
+        puzzle: updatedPuzzle.sort(),
         mode: state.mode,
         totalScore: updatedScore,
-        tileDisplays: newDisplays,
       ),
     );
   }

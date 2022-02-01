@@ -299,10 +299,8 @@ class PuzzleBoard extends StatelessWidget {
 // ignore: public_member_api_docs
 List<Widget> handleDisplays(List<Tile> tiles, List<bool> displays) {
   final processedTiles = <Widget>[];
-  print('tiles.map' + tiles.toString() + ' displays: ' + displays.toString());
   tiles.forEach((tile) {
-    print('tile.value' + tile.value.toString());
-    if ((displays[tile.value - 1]) == true) {
+    if (tile.isDragged == false) {
       processedTiles.add(
         _PuzzleTile(
           key: Key('puzzle_tile_${tile.value.toString()}'),
@@ -313,7 +311,6 @@ List<Widget> handleDisplays(List<Tile> tiles, List<bool> displays) {
       processedTiles.add(const SizedBox());
     }
   });
-  print('processedTiles' + processedTiles.toString());
   return processedTiles;
 }
 

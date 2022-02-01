@@ -80,7 +80,7 @@ class _NumberOfMovesAndTilesLeftState extends State<NumberOfMovesAndTilesLeft> {
             key: const Key('numberOfMovesAndTilesLeft'),
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: 'Drag Score: ${state.totalScore}/105',
+              text: 'Drag Score: ${state.totalScore}/120',
               style: PuzzleTextStyle.headline4.copyWith(
                 color: textColor,
               ),
@@ -92,9 +92,9 @@ class _NumberOfMovesAndTilesLeftState extends State<NumberOfMovesAndTilesLeft> {
             child: RichText(
               text: TextSpan(
                 style: PuzzleTextStyle.headline4.copyWith(
-                  color: state.totalScore >= 105 ? Colors.blue : Colors.red,
+                  color: state.totalScore >= 120 ? Colors.blue : Colors.red,
                 ),
-                text: state.totalScore >= 105 ? 'You won!' : 'You lost!',
+                text: state.totalScore >= 120 ? 'You won!' : 'You lost!',
               ),
             ),
           )

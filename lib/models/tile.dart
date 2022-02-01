@@ -11,6 +11,7 @@ class Tile extends Equatable {
     required this.correctPosition,
     required this.currentPosition,
     this.isWhitespace = false,
+    this.isDragged = false,
   });
 
   /// Value representing the correct position of [Tile] in a list.
@@ -26,6 +27,9 @@ class Tile extends Equatable {
   /// Denotes if the [Tile] is the whitespace tile or not.
   final bool isWhitespace;
 
+  // ignore: public_member_api_docs
+  final bool isDragged;
+
   /// Create a copy of this [Tile] with updated current position.
   Tile copyWith({required Position currentPosition}) {
     return Tile(
@@ -36,11 +40,23 @@ class Tile extends Equatable {
     );
   }
 
+  // ignore: public_member_api_docs
+  Tile setDragged({bool val = true}) {
+    return Tile(
+      value: value,
+      correctPosition: correctPosition,
+      currentPosition: currentPosition,
+      isWhitespace: isWhitespace,
+      isDragged: val,
+    );
+  }
+
   @override
   List<Object> get props => [
         value,
         correctPosition,
         currentPosition,
         isWhitespace,
+        isDragged,
       ];
 }

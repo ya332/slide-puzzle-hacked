@@ -231,8 +231,6 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         },
         onAccept: (int data) {
           context.read<PuzzleBloc>().add(PuzzleScoreAdded(data));
-          print(
-              'accepted data is ${data.toString()}. Total score is ${state.totalScore}\n');
         },
       );
     }

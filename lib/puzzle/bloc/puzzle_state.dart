@@ -183,5 +183,6 @@ class PuzzleState extends Equatable {
         instruction,
         totalScore,
         puzzleHackFinished,
+        tileDisplays,
       ];
 }
