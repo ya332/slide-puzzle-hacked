@@ -46,6 +46,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
     state.setMode(Mode.normal);
+    List<bool> resetDisplays = state.resetTileDisplays();
     if (state.animationController != null) {
       state.animationController?.reset();
     }
@@ -55,6 +56,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         numberOfCorrectTiles: state.puzzle.getNumberOfCorrectTiles(),
         mode: state.mode,
         puzzleHackFinished: false,
+        tileDisplays: resetDisplays,
       ),
     );
   }
@@ -72,16 +74,21 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onPuzzleScoreAdded(PuzzleScoreAdded event, Emitter<PuzzleState> emit) {
-    var updatedScore = state.totalScore;
-    if (!state.puzzleHackFinished) {
-      updatedScore += event.data.toInt();
-    }
-    final puzzle = _generatePuzzle(_size, shuffle: true);
+    print("state.totalScore" + state.totalScore.toString());
+    var newDisplays = state.tileDisplays;
+    var updatedScore = state.totalScore + event.data.toInt();
+    print("before state.tileDisplays[event.data.toInt() - 1" +
+        state.tileDisplays.toString());
+    newDisplays[event.data.toInt() - 1] = false;
+    final puzzle = _generatePuzzle(_size);
+    print("after state.tileDisplays[event.data.toInt() - 1" +
+        state.tileDisplays.toString());
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
         mode: state.mode,
         totalScore: updatedScore,
+        tileDisplays: newDisplays,
       ),
     );
   }

@@ -14,6 +14,25 @@ class PuzzleState extends Equatable {
   static const crazy =
       'You are in Crazy mode. Try to arrange the tiles while board rotates :)';
 
+  static const initialDisplays = [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ];
+  // ignore: lines_longer_than_80_chars
   PuzzleState({
     this.puzzle = const Puzzle(tiles: []),
     this.puzzleStatus = PuzzleStatus.incomplete,
@@ -27,6 +46,7 @@ class PuzzleState extends Equatable {
     this.totalScore = 0,
     this.isTotalScoreShown = false,
     this.puzzleHackFinished = false,
+    this.tileDisplays = initialDisplays,
   });
 
   /// [Puzzle] containing the current tile arrangement.
@@ -64,11 +84,13 @@ class PuzzleState extends Equatable {
   String instruction;
   // ignore: lines_longer_than_80_chars
 
-  int totalScore = 0;
+  int totalScore;
 
   bool isTotalScoreShown = false;
 
   bool puzzleHackFinished = false;
+
+  List<bool> tileDisplays;
 
   PuzzleState copyWith({
     Puzzle? puzzle,
@@ -83,6 +105,7 @@ class PuzzleState extends Equatable {
     int? totalScore,
     bool? isTotalScoreShown,
     bool? puzzleHackFinished,
+    List<bool>? tileDisplays,
   }) {
     return PuzzleState(
       puzzle: puzzle ?? this.puzzle,
@@ -97,6 +120,7 @@ class PuzzleState extends Equatable {
       totalScore: totalScore ?? this.totalScore,
       isTotalScoreShown: isTotalScoreShown ?? this.isTotalScoreShown,
       puzzleHackFinished: puzzleHackFinished ?? this.puzzleHackFinished,
+      tileDisplays: tileDisplays ?? this.tileDisplays,
     );
   }
 
@@ -116,13 +140,23 @@ class PuzzleState extends Equatable {
   }
 
   PuzzleState setTotalScore(int score) {
-    totalScore = score;
-    return copyWith(totalScore: totalScore);
+    this.totalScore = score;
+    return copyWith(totalScore: score);
   }
 
   PuzzleState setIsTotalScoreShown(bool value) {
     isTotalScoreShown = value;
     return copyWith(isTotalScoreShown: isTotalScoreShown);
+  }
+
+  PuzzleState setTileDisplays(int tileIndex, bool val) {
+    tileDisplays[tileIndex] = val;
+    return copyWith(tileDisplays: tileDisplays);
+  }
+
+  List<bool> resetTileDisplays() {
+    tileDisplays = initialDisplays;
+    return tileDisplays;
   }
 
   PuzzleState setInstruction(Mode mode) {

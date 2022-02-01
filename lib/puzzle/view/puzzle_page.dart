@@ -265,6 +265,7 @@ class PuzzleBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final state = context.select((PuzzleBloc bloc) => bloc.state);
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
     final size = puzzle.getDimension();
     if (size == 0) return const CircularProgressIndicator();
@@ -275,19 +276,45 @@ class PuzzleBoard extends StatelessWidget {
           context.read<TimerBloc>().add(const TimerStopped());
         }
       },
-      child: theme.layoutDelegate.boardBuilder(
-        size,
-        puzzle.tiles
-            .map(
-              (tile) => _PuzzleTile(
-                key: Key('puzzle_tile_${tile.value.toString()}'),
-                tile: tile,
-              ),
+      child: state.mode == Mode.hack
+          ? theme.layoutDelegate.boardBuilder(
+              size,
+              handleDisplays(puzzle.tiles, state.tileDisplays),
             )
-            .toList(),
-      ),
+          : theme.layoutDelegate.boardBuilder(
+              size,
+              puzzle.tiles
+                  .map(
+                    (tile) => _PuzzleTile(
+                      key: Key('puzzle_tile_${tile.value.toString()}'),
+                      tile: tile,
+                    ),
+                  )
+                  .toList(),
+            ),
     );
   }
+}
+
+// ignore: public_member_api_docs
+List<Widget> handleDisplays(List<Tile> tiles, List<bool> displays) {
+  final processedTiles = <Widget>[];
+  print('tiles.map' + tiles.toString() + ' displays: ' + displays.toString());
+  tiles.forEach((tile) {
+    print('tile.value' + tile.value.toString());
+    if ((displays[tile.value - 1]) == true) {
+      processedTiles.add(
+        _PuzzleTile(
+          key: Key('puzzle_tile_${tile.value.toString()}'),
+          tile: tile,
+        ),
+      );
+    } else {
+      processedTiles.add(const SizedBox());
+    }
+  });
+  print('processedTiles' + processedTiles.toString());
+  return processedTiles;
 }
 
 class _PuzzleTile extends StatelessWidget {

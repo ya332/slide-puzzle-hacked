@@ -218,18 +218,21 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           List<dynamic> rejected,
         ) {
           return Container(
-              height: 100.0,
-              width: 100.0,
-              color: Colors.white,
-              child: Stack(children: <Widget>[
+            height: 100.0,
+            width: 100.0,
+            color: Colors.white,
+            child: Stack(
+              children: <Widget>[
                 Image.asset('assets/images/joker.jpg'),
                 const Center(child: Text('Drop Target')),
-              ]));
+              ],
+            ),
+          );
         },
         onAccept: (int data) {
           context.read<PuzzleBloc>().add(PuzzleScoreAdded(data));
           print(
-              'accepted data is ${data.toString()}. Total score is $state.totalScore');
+              'accepted data is ${data.toString()}. Total score is ${state.totalScore}\n');
         },
       );
     }
