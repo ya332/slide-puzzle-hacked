@@ -127,5 +127,9 @@ app.*.map.json
 !.idea/runConfigurations/
 
 
-##
+## Cache
 *.cache
+
+## jks
+.jks
+key.properties

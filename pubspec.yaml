@@ -1,4 +1,4 @@
-name: very_good_slide_puzzle
+name: slide_puzzle_hacked
 description: Slide Puzzle Game for Flutter Hackathon
 version: 1.0.0+1
 publish_to: none
@@ -25,7 +25,13 @@ dependencies:
     git:
       url: https://github.com/g-apparence/ripple-effect
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/android_icon.png"
+
 dev_dependencies:
+  flutter_launcher_icons: "^0.9.0"
   bloc_test: ^9.0.1
   flutter_test:
     sdk: flutter
