@@ -50,6 +50,10 @@ $ firebase deploy
 For Android,
 ```bash
 $ flutter build appbundle
+
+$ java -jar bundletool.jar build-apks --bundle=release\app-release.aab --output=apk_set.apks --mode=universal --ks=my-awesome-key-store.jks --ks-pass=pass:<password-here> --ks-key-alias=<alias-here> --key-pass=pass:<password-here>
+
+$ java -jar bundletool.jar install-apks --apks=apk_set.apks --device-id=R28M52AHRWN
 ```
 ---
 
@@ -199,10 +203,3 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
 [very_good_ventures_link]: https://verygood.ventures/
 [logo]: art/header.png
-
-## Deployment
-```bash
-java -jar bundletool.jar build-apks --bundle=release\app-release.aab --output=apk_set.apks --mode=universal --ks=my-awesome-key-store.jks --ks-pass=pass:<password-here> --ks-key-alias=<alias-here> --key-pass=pass:<password-here>
-
-java -jar bundletool.jar install-apks --apks=apk_set.apks --device-id=R28M52AHRWN
-```
