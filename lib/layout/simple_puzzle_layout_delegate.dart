@@ -267,7 +267,7 @@ class SimpleStartSection extends StatelessWidget {
       children: [
         const ResponsiveGap(
           small: 20,
-          medium: 83,
+          medium: 20,
           large: 151,
         ),
         const PuzzleName(),

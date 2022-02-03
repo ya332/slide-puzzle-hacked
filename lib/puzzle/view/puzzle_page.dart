@@ -111,14 +111,23 @@ class _PuzzleHeader extends StatelessWidget {
     return SizedBox(
       height: 96,
       child: ResponsiveLayoutBuilder(
-        small: (context, child) => const Center(
-          child: _PuzzleLogo(),
-        ),
-        medium: (context, child) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 50,
+        small: (context, child) => Padding(
+          padding: const EdgeInsets.only(
+            bottom: 50,
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              _PuzzleLogo(),
+            ],
+          ),
+        ),
+        medium: (context, child) => Padding(
+          padding: const EdgeInsets.only(
+            bottom: 50,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               _PuzzleLogo(),
             ],
